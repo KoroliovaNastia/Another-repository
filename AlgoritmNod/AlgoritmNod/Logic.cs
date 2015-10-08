@@ -7,32 +7,56 @@ using System.Diagnostics;
 
 namespace AlgoritmNod
 {
-    class Logic
+    public static class Logic
     {
-        private int NodE(int a, int b)
+        public static int NodE(int a, int b)
         {
-            Stopwatch sWatch = new Stopwatch();
-            sWatch.Start();
             while (b != 0)
                 b = a % (a = b);
-            sWatch.Stop();
-            Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
             return a;
         }
-        private int NodE(params int[] list)
+        public static int NodE(int a, int b, out long time)
         {
             Stopwatch sWatch = new Stopwatch();
             sWatch.Start();
+            a = Logic.NodE(a,b);
+            time = sWatch.ElapsedTicks;
+            return a;
+        }
+        public static int NodE(int a, int b, int c)
+        {
+            while (b != 0)
+                b = a % (a = b);
+            while (c != 0)
+                c = a % (a = c);
+            return a;
+        }
+        public static int NodE(int a, int b, int c, out long time)
+        {
+            Stopwatch sWatch = new Stopwatch();
+            sWatch.Start();
+            a = Logic.NodE(a, b, c);
+            time = sWatch.ElapsedTicks;
+            return a;
+        }
+        public static int NodE(params int[] list)
+        {
             for (int i = 1; i < list.Length; i++)
             {
                 while (list[i] != 0)
                     list[i] = list[0] % (list[0] = list[i]);
             }
-            sWatch.Stop();
-            Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
             return list[0];
         }
-        private int NodS(int a, int b)
+        public static int NodE(out long time, params int[] list)
+        {
+            Stopwatch sWatch = new Stopwatch();
+            sWatch.Start();
+            list[0] = Logic.NodE(list);
+            time = sWatch.ElapsedTicks;
+            return list[0];
+        }
+        public static int NodS(int a, int b)
         {
             Stopwatch sWatch = new Stopwatch();
             sWatch.Start();
@@ -51,11 +75,11 @@ namespace AlgoritmNod
             if ((a % 2 != 0) && (b % 2 == 0))
             return NodS(a, b / 2); 
             sWatch.Stop();
-            Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
+            //Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
             return NodS(b, Math.Abs(a - b));
             
         }
-         private int NodS(params int[] list)
+        public static int NodS(params int[] list)
         {
             Stopwatch sWatch = new Stopwatch();
             sWatch.Start();
@@ -64,7 +88,7 @@ namespace AlgoritmNod
                 list[0] = NodS(list[0], list[i]);
             }
             sWatch.Stop();
-            Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
+            //Console.WriteLine(sWatch.ElapsedMilliseconds.ToString());
             return list[0];
         }
     }
